@@ -16,6 +16,7 @@ AddBookForm:
 <AddBookForm>:
     orientation: "vertical"
     search_input: search_box
+    search_results: search_results_list
     BoxLayout:
         height: "40dp"
         size_hint_y: None
@@ -31,7 +32,8 @@ AddBookForm:
             size_hint_x: 30
 
     ListView:
-        item_strings: ["Harry Potter", "Charmed"]
+        id: search_results_list
+        item_strings: [] #can manually enter values(static ones)
 
 #BoxLayout:
 #    orientation: "vertical"
