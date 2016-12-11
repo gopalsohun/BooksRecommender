@@ -20,20 +20,26 @@ AddBookForm:
     BoxLayout:
         height: "40dp"
         size_hint_y: None
-        TextInput:
-            id: search_box
-            size_hint_x: 40
+        Button:
+            text: "Home"
+            pos_hint_x: None
+            width: "20px"
         Button:
             text: "Search"
-            size_hint_x: 30
+            size_hint_x: None
+            width: "60dp"
             on_press: root.search_book()
-        Button:
-            text: "Current Book"
-            size_hint_x: 30
-
-    ListView:
-        id: search_results_list
-        item_strings: [] #can manually enter values(static ones)
+            Image:
+                source:
+        TextInput:
+            id: search_box
+            width: "200dp"
+            size_hint_x: None
+    BoxLayout:
+        orientation: "vertical"
+        ListView:
+            id: search_results_list
+            item_strings: [] #can manually enter values(static ones)
 
 #BoxLayout:
 #    orientation: "vertical"
