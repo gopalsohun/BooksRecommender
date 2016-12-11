@@ -12,13 +12,13 @@ class AddBookForm(BoxLayout):
     def search_book(self):
         print("The user searched for '{}'".format(self.search_input.text))
 
-    def search_location(self):
+    def search_book(self):
+        books_service = build('books', 'v1', developerKey='AIzaSyDgEcXMWxJo7BMfkjHRArzvZY9-5Vw3iTk')
         search_template = "https://www.googleapis.com/books/v1/volumes?q="
         search_url = search_template.format(self.search_input.text)
         request = UrlRequest(search_url, self.found_book)
 
     def found_book(self, request, data):
-        books_service = build('books', 'v1', developerKey='AIzaSyDgEcXMWxJo7BMfkjHRArzvZY9-5Vw3iTk')
         data = json.loads(data.decode()) if not isinstance(data, dict) else data
         books = ["{}({})".format(d['title'], d['authors']['categories'])
             for d in data['list']]
