@@ -11,10 +11,15 @@ class AddBookForm(BoxLayout):
     googleapikey = "AIzaSyDgEcXMWxJo7BMfkjHRArzvZY9-5Vw3iTk"
     search_input = ObjectProperty()
 
-    def search_book(self):
-        print("The user searched for '{}'".format(self.search_input.text))
+    # def search_book(self):
+    #     print("The user searched for '{}'".format(self.search_input.text))
 
     def search_book(self):
+        if self.search_input.text == "":
+            print("null")
+            return
+
+
         parms = {"q":self.search_input.text, 'key':self.googleapikey}
         print("here")
         search_template = "https://www.googleapis.com/books/v1/volumes"

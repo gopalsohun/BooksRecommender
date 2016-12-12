@@ -18,23 +18,33 @@ AddBookForm:
     search_input: search_box
     search_results: search_results_list
     BoxLayout:
-        height: "40dp"
+        height: "35dp"
         size_hint_y: None
         Button:
             text: "Home"
-            pos_hint_x: None
-            width: "20px"
+            size_hint_x: None
+            width: "50dp"
         Button:
             text: "Search"
             size_hint_x: None
             width: "60dp"
             on_press: root.search_book()
             Image:
-                source:
+                source: "/images/search.png"
+                size_hint_x: None
+                width: 40
+                height: 40
         TextInput:
             id: search_box
-            width: "200dp"
             size_hint_x: None
+            width: "300dp"
+
+    GridLayout:
+        cols: 2
+        rows: 2
+        Label:
+            text: "Search Results"
+
     BoxLayout:
         orientation: "vertical"
         ListView:
