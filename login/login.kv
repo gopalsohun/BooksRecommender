@@ -1,0 +1,44 @@
+AddLoginForm:
+
+<AddLoginForm>:
+    BoxLayout:
+        id: header
+        padding: [100,100,100,100]
+        spacing: 10
+        orientation: "vertical"
+        Label:
+            text: 'Books Recommender'
+            font_size: 40
+        BoxLayout:
+            id: body
+            orientation:"vertical"
+            TextInput:
+                id: UserTextField
+                text: 'Username'
+                multiline: False
+                font_size: 30
+        BoxLayout:
+            id: body
+            orientation:"vertical"
+            TextInput:
+                id: PasswordField
+                text: 'Password'
+                multiline: False
+                font_size: 30
+            Button:
+                text: 'Sign In'
+                font_size: 24
+                Image:
+                    source: "search.png"
+                    width: 600
+                    height: 40
+                    size_hint_x: None
+                    size_hint_y: None
+        BoxLayout:
+            id: footer
+            padding: [100,100,100,100]
+            spacing: 10
+            orientation: "vertical"
+            Label:
+                text: "Don't have an account yet? SignUp."
+                font_size: 10
