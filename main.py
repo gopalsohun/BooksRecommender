@@ -73,7 +73,7 @@ class BooksRecommendationRoot(BoxLayout):
         current_book.title = book
         self.add_widget(current_book)
 
-    def show_add_book_form(self):
+    def show_book_form(self):
         self.clear_widgets()
         self.add_widget(AddBookForm())
 

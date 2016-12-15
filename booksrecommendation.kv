@@ -65,7 +65,15 @@ BooksRecommendationRoot:
         size_hint_y: None
         height: "40dp"
         Button:
-            text: "Add Book"
-            on_press: app.root.show_book
-        Button:
-            text: "Rate"
+            text: ""
+            size_hint_x: None
+            width: "40dp"
+            height: "40dp"
+            on_press: app.root.show_book_form()
+            Image:
+                source: "back.png"
+                size_hint_x: None
+                width: "40dp"
+                height: "40dp"
+        Label:
+            text: root.title
