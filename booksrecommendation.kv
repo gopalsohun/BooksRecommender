@@ -1,18 +1,11 @@
-#Label:
-#    text: "Hello World"
+#: import main main
+#: import ListItemButton kivy.uix.listview.ListItemButton
+#: import ListAdapter kivy.adapters.listadapter.ListAdapter
 
-#BoxLayout:
-#    Label:
-#        text: "Hello"
-#
-#    Label:
-#        text: "Beautiful"
-#
-#    Label:
-#        text: "World"
 
-AddBookForm:
-
+BooksRecommendationRoot:
+<BooksRecommendationRoot>:
+    AddBookForm
 <AddBookForm>:
     orientation: "vertical"
     search_input: search_box
@@ -30,7 +23,7 @@ AddBookForm:
             width: "60dp"
             on_press: root.search_book()
             Image:
-#                source: "/images/search.png"
+                source: "search.png"
                 size_hint_x: None
                 width: 40
                 height: 40
@@ -38,6 +31,7 @@ AddBookForm:
             id: search_box
             size_hint_x: None
             width: "300dp"
+            multiline: False
 
     BoxLayout:
         orientation: "vertical"
@@ -51,28 +45,27 @@ AddBookForm:
         orientation: "vertical"
         ListView:
             id: search_results_list
-            item_strings: [] #can manually enter values(static ones)
+            adapter:
+                ListAdapter(data=[], cls=main.BookButton)
+#            item_strings: [] #can manually enter values(static ones)
 
-#BoxLayout:
-#    orientation: "vertical"
-#    BoxLayout:
-#        Button:
-#            size_hint_x: 1
-#        Button:
-#            size_hint_x: 1
-#        Button:
-#            size_hint_x: 1
-#    BoxLayout:
-#        Button:
-#            size_hint_x: 1
-#        Button:
-#            size_hint_x: 2
-#        Button:
-#            size_hint_x: 3
-#    BoxLayout:
-#        Button:
-#            size_hint_x: 1
-#        Button:
-#            size_hint_x: 0.75
-#        Button:
-#            size_hint_x: 0.25
+
+<BookButton>:
+    on_press: app.root.show_book(self.text)
+
+<CurrentBook@BoxLayout>:
+    title: ""
+    author: ""
+    thumbnail: ""
+    orientation: "vertical"
+    Label:
+        text: root.title
+    BoxLayout:
+        orientation: "horizontal"
+        size_hint_y: None
+        height: "40dp"
+        Button:
+            text: "Add Book"
+            on_press: app.root.show_book
+        Button:
+            text: "Rate"

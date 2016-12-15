@@ -1,9 +1,11 @@
 import requests
 from googleapiclient.discovery import build
 from kivy.app import App
+from kivy.factory import Factory
 from kivy.network.urlrequest import UrlRequest
 from kivy.uix.boxlayout import BoxLayout
 from kivy.properties import ObjectProperty
+from kivy.uix.listview import ListItemButton
 import json
 
 
@@ -60,6 +62,23 @@ class AddBookForm(BoxLayout):
                  for d in data['items']]
         print("\n".join(books))
         self.search_results.item_strings = books
+        self.search_results.adapter.data.clear()
+        self.search_results.adapter.data.extend(books)
+        self.search_results._trigger_reset_populate()
+
+class BooksRecommendationRoot(BoxLayout):
+    def show_book(self, book):
+        self.clear_widgets()
+        current_book = Factory.CurrentBook()
+        current_book.title = book
+        self.add_widget(current_book)
+
+    def show_add_book_form(self):
+        self.clear_widgets()
+        self.add_widget(AddBookForm())
+
+class BookButton(ListItemButton):
+    pass
 
 
 class BooksRecommendationApp(App):
