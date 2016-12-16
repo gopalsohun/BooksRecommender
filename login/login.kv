@@ -3,7 +3,7 @@ AddLoginForm:
 <AddLoginForm>:
     BoxLayout:
         id: header
-        padding: [100,100,100,100]
+        padding: [40,40,40,40]
         spacing: 10
         orientation: "vertical"
         Label:
@@ -11,29 +11,40 @@ AddLoginForm:
             font_size: 40
         BoxLayout:
             id: body
-            orientation:"vertical"
-            TextInput:
-                id: UserTextField
-                text: 'Username'
-                multiline: False
-                font_size: 30
+            orientation:"horizontal"
+            BoxLayout:
+                Image:
+                    source: "user1.png"
+                    size_hint_x: None
+                    width: "40dp"
+                    height: "40dp"
+                    padding: [10,10,10,10]
+            BoxLayout:
+                TextInput:
+                    id: UserTextField
+                    text: 'Username'
+                    multiline: False
+                    font_size: 30
         BoxLayout:
             id: body
-            orientation:"vertical"
-            TextInput:
-                id: PasswordField
-                text: 'Password'
-                multiline: False
-                font_size: 30
-            Button:
-                text: 'Sign In'
-                font_size: 24
+            orientation:"horizontal"
+            BoxLayout:
                 Image:
-                    source: "search.png"
-                    width: 600
-                    height: 40
+                    source: "pass.png"
                     size_hint_x: None
-                    size_hint_y: None
+                    width: 40
+                    height: 40
+            BoxLayout:
+                TextInput:
+                    id: PasswordField
+                    text: 'Password'
+                    multiline: False
+                    font_size: 30
+
+        Button:
+            text: 'Sign In'
+            font_size: 24
+
         BoxLayout:
             id: footer
             padding: [100,100,100,100]
