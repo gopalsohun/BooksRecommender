@@ -2,11 +2,12 @@
 #: import ListItemButton kivy.uix.listview.ListItemButton
 #: import ListAdapter kivy.adapters.listadapter.ListAdapter
 
-
 BooksRecommendationRoot:
 <BooksRecommendationRoot>:
     AddBookForm
+
 <AddBookForm>:
+    background_color:
     orientation: "vertical"
     search_input: search_box
     search_results: search_results_list
@@ -21,17 +22,19 @@ BooksRecommendationRoot:
             text: "Search"
             size_hint_x: None
             width: "60dp"
+            height: "40dp"
             on_press: root.search_book()
             Image:
                 source: "search.png"
                 size_hint_x: None
-                width: 40
-                height: 40
+                width: "40dp"
+                height: "40dp"
         TextInput:
             id: search_box
-            size_hint_x: None
-            width: "300dp"
+            focus: True
+            size_hint_x: 50
             multiline: False
+            on_text_validate: root.search_book()
 
     BoxLayout:
         orientation: "vertical"
@@ -40,11 +43,12 @@ BooksRecommendationRoot:
             size_hint_y: None
             height: "500dp"
 
-
     BoxLayout:
         orientation: "vertical"
         ListView:
             id: search_results_list
+            size_hint_y: None
+            height: "500px"
             adapter:
                 ListAdapter(data=[], cls=main.BookButton)
 #            item_strings: [] #can manually enter values(static ones)
@@ -55,8 +59,11 @@ BooksRecommendationRoot:
 
 <CurrentBook@BoxLayout>:
     title: ""
-    author: ""
     thumbnail: ""
+    author: ""
+    publisher: ""
+    date: ""
+    description: ""
     orientation: "vertical"
     Label:
         text: root.title
