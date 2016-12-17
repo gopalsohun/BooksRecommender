@@ -49,7 +49,7 @@ class AddBookForm(BoxLayout):
         # except:
         #     pass
 
-        books = ["{} by {}".format(d["volumeInfo"]["title"], d["volumeInfo"]["authors"][0])
+        books = ['{}\nBy {}'.format(d["volumeInfo"]["title"], d["volumeInfo"]["authors"][0])
                  for d in data["items"]]
         print("\n".join(books))
         self.search_results.item_strings = books
@@ -85,7 +85,7 @@ class BooksRecommendationRoot(BoxLayout):
     def show_book(self, title=None):
         self.clear_widgets()
         if title is None and self.current_book is None:
-            title = "Harry Potter"
+            title = "Nothing found."
         if title is not None:
             self.current_book = Factory.CurrentBook()
             self.current_book.title = title

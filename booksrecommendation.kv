@@ -4,26 +4,39 @@
 
 BooksRecommendationRoot:
 <BooksRecommendationRoot>:
+    canvas.before:
+        Color:
+            rgba: 1, 1, 1, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
     AddBookForm
 
 <AddBookForm>:
-    background_color:
     orientation: "vertical"
     search_input: search_box
     search_results: search_results_list
     BoxLayout:
-        height: "35dp"
+        orientation: "horizontal"
         size_hint_y: None
+        width: "40dp"
+        height: "40dp"
         Button:
             text: "Home"
             size_hint_x: None
             width: "50dp"
+            Image:
+                source: "home.png"
+                size_hint_x: None
+                width: "40dp"
+                height: "40dp"
         Button:
             text: "Search"
             size_hint_x: None
             width: "60dp"
             height: "40dp"
             on_press: root.search_book()
+            background_color: [0.5, 1, 0.2, 1]
             Image:
                 source: "search.png"
                 size_hint_x: None
@@ -32,14 +45,25 @@ BooksRecommendationRoot:
         TextInput:
             id: search_box
             focus: True
+            cursor_color: [0, 0, 0, 1]
+            font_size: "18sp"
             size_hint_x: 50
             multiline: False
             on_text_validate: root.search_book()
+            handle_image_left: "search.png"
+            hint_text: "Enter required book name to begin"
+            input_type: "text"
+            keyboard_suggestions: True
 
     BoxLayout:
         orientation: "vertical"
         Label:
-            text: "Search Results"
+            text: '[color=003300]Search Results[/color]'
+            markup: True
+            underline: True #not working -- need dev version of kivy
+            font_size: "20sp"
+            bold: True
+            valign: "top"  #not working
             size_hint_y: None
             height: "500dp"
 
@@ -48,13 +72,27 @@ BooksRecommendationRoot:
         ListView:
             id: search_results_list
             size_hint_y: None
-            height: "500px"
+            height: "460px"
+            selected_color: [0, 0, 0, 1]
             adapter:
                 ListAdapter(data=[], cls=main.BookButton)
 #            item_strings: [] #can manually enter values(static ones)
+        Button:
+            height: "40dp"
+            size_hint_y: None
+            text: "Previous"
+            on_press: app.root.show_book(None)
 
 
 <BookButton>:
+    size: (150, "160dp")
+#    spacing: 40
+    bold: True
+    deselected_color: [0, 0, 0, 0.01]
+    border: [10, 10, 10, 10]
+    margin: 20
+    color: [0, 0, 0, 1]
+    text_size: (290, 40)  #proper text alignment
     on_press: app.root.show_book(self.text)
 
 <CurrentBook@BoxLayout>:
@@ -67,12 +105,14 @@ BooksRecommendationRoot:
     orientation: "vertical"
     Label:
         text: root.title
+        color: [0, 0, 0, 1]
     BoxLayout:
         orientation: "horizontal"
         size_hint_y: None
         height: "40dp"
         Button:
             text: ""
+            background_color: [1, 1, 1, 0.1]
             size_hint_x: None
             width: "40dp"
             height: "40dp"
@@ -84,3 +124,4 @@ BooksRecommendationRoot:
                 height: "40dp"
         Label:
             text: root.title
+            color: [0, 0, 0, 1]
