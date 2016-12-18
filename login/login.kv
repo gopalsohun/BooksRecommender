@@ -1,4 +1,6 @@
-AddLoginForm:
+BooksRecommendationLoginRoot:
+<BooksRecommendationLoginRoot>:
+    AddLoginForm
 
 <AddLoginForm>:
     BoxLayout:
@@ -9,37 +11,101 @@ AddLoginForm:
         Label:
             text: 'Books Recommender'
             font_size: 40
-        BoxLayout:
+        GridLayout:
             id: body
+            cols: 2
             orientation:"horizontal"
-            BoxLayout:
-                Image:
-                    source: "user1.png"
-                    size_hint_x: None
-                    width: "40dp"
-                    height: "40dp"
-                    padding: [10,10,10,10]
-            BoxLayout:
-                TextInput:
-                    id: UserTextField
-                    text: 'Username'
-                    multiline: False
-                    font_size: 30
-        BoxLayout:
+            Image:
+                source: "userlogo.jpg"
+                size_hint_x: None
+                width: "60dp"
+                height: "60dp"
+                padding: [10,10,10,10]
+
+            TextInput:
+                id: UserTextField
+                text: 'Username'
+                multiline: False
+                font_size: 30
+        GridLayout:
             id: body
+            cols: 2
             orientation:"horizontal"
-            BoxLayout:
-                Image:
-                    source: "pass.png"
-                    size_hint_x: None
-                    width: 40
-                    height: 40
-            BoxLayout:
-                TextInput:
-                    id: PasswordField
-                    text: 'Password'
-                    multiline: False
-                    font_size: 30
+            Image:
+                source: "lockw.png"
+                size_hint_x: None
+                width: 40
+                height: 40
+            TextInput:
+                id: PasswordField
+                text: 'Password'
+                multiline: False
+                font_size: 30
+        Button:
+            text: 'Sign In'
+            font_size: 24
+
+        BoxLayout:
+            id: footer
+            padding: [100,100,100,100]
+            spacing: 10
+            orientation: "vertical"
+            Label:
+                text: "Don't have an account yet? SignUp."
+                font_size: 10
+
+<AddRegisterForm>:
+    BoxLayout:
+        id: header
+        padding: [40,40,40,40]
+        spacing: 10
+        orientation: "vertical"
+        Label:
+            text: 'Books Recommender'
+            font_size: 40
+        GridLayout:
+            id: body
+            cols: 2
+            orientation:"horizontal"
+            Image:
+                source: "userlogo.jpg"
+                size_hint_x: None
+                width: "60dp"
+                height: "60dp"
+                padding: [10,10,10,10]
+
+            TextInput:
+                id: UserTextField
+                text: 'Username'
+                multiline: False
+                font_size: 30
+        GridLayout:
+            id: body
+            cols: 2
+            orientation:"horizontal"
+            Image:
+                source: "lockw.png"
+                size_hint_x: None
+                width: 40
+                height: 40
+            TextInput:
+                id: PasswordField
+                text: 'Password'
+                multiline: False
+                font_size: 30
+        GridLayout:
+            cols: 2
+            orientation: "horizontal"
+            Image:
+                source: "lockw.png"
+                size_hint_x: None
+                width: 40
+                height: 40
+            TextInput:
+                id: PasswordField
+                text: 'Confirm Password'
+                multiline: False
+                font_size: 30
 
         Button:
             text: 'Sign In'
