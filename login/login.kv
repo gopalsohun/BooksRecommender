@@ -1,49 +1,61 @@
-BooksRecommendationLoginRoot:
-<BooksRecommendationLoginRoot>:
-    AddLoginForm
+AddLoginForm:
 
 <AddLoginForm>:
+    UserTextField: UserTextField
+    PasswordField: PasswordField
+
     BoxLayout:
-        id: header
-        padding: [40,40,40,40]
-        spacing: 10
         orientation: "vertical"
+
         Label:
             text: 'Books Recommender'
             font_size: 40
         GridLayout:
-            id: body
             cols: 2
-            orientation:"horizontal"
+            row_default_height: "70dp"
+            row_force_default: True
+            padding: [40,80,40,40]
             Image:
                 source: "userlogo.jpg"
                 size_hint_x: None
+                size_hint_y: None
                 width: "60dp"
-                height: "60dp"
-                padding: [10,10,10,10]
+                height: "70dp"
 
             TextInput:
                 id: UserTextField
                 text: 'Username'
                 multiline: False
-                font_size: 30
+                size_hint_y: None
+                height: "60dp"
+                padding: [20,20,20,20]
+                font_size: 25
+
         GridLayout:
-            id: body
             cols: 2
             orientation:"horizontal"
+            row_default_height: "70dp"
+            row_force_default: True
+            padding: [40,40,40,40]
             Image:
                 source: "lockw.png"
                 size_hint_x: None
-                width: 40
-                height: 40
+                size_hint_y: None
+                width: "60dp"
+                height: "60dp"
             TextInput:
                 id: PasswordField
                 text: 'Password'
                 multiline: False
-                font_size: 30
+                height: "60dp"
+                padding: [20,20,20,20]
+                font_size: 25
         Button:
             text: 'Sign In'
             font_size: 24
+            size_hint_y: None
+            height: "40dp"
+            on_press: root.do_login()
 
         BoxLayout:
             id: footer
