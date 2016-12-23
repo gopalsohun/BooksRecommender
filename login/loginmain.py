@@ -1,11 +1,10 @@
 from kivy.app import App
-from kivy.uix.label import Label
 from kivy.uix.boxlayout import BoxLayout
-from kivy.uix.textinput import TextInput
+
 
 class AddLoginForm(BoxLayout):
     def do_login(self):
-        self.login.text= " Text data " + self.User.text
+        self.login.text= " Text data " + self.UserTextField.text
 
 class LoginApp(App):
     def build(self):
