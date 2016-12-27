@@ -2,6 +2,9 @@ from kivy.app import App
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.anchorlayout import AnchorLayout
 from kivy.properties import ObjectProperty  # at top of file
+import sqlite3
+
+conn= sqlite3.connect('booksrecommender.db')
 
 class SignUpForm(AnchorLayout):
     username_box = ObjectProperty()
@@ -9,9 +12,21 @@ class SignUpForm(AnchorLayout):
     confirm_box = ObjectProperty()
 
     def login(self):
-        print(self.username_box.text)
-        print(self.password_box.text)
-        print(self.confirm_box.text)
+        with conn:
+            cursor = conn.cursor()
+
+            password = self.password_box.text
+            confirm = self.confirm_box.text
+
+            if password == confirm:
+                print("Welcome")
+                cursor.execute('''INSERT INTO Authentication VALUES (?, ?);''', (self.username_box.text,password))
+                conn.commit()
+                print("Table created successfully")
+                conn.close()
+
+            else:
+                print("Error in password")
 
 class SignUp(App):
     def build(self):
