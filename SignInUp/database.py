@@ -16,10 +16,15 @@ print("Opened database successfully")
 #             UserName    TEXT    NOT NULL,
 #             Password TEXT    NOT NULL);''')
 
-aa = "hello"
-bb = "bye"
+aa = "chitra"
 cursor = conn.cursor()
-cursor.execute("INSERT INTO Authentication VALUES (NULL, ?, ? )", (aa,bb));
-conn.commit()
+for row in aa:
+    cursor.execute("SELECT UserID FROM Authentication WHERE UserName = ?", (aa,))
+    data = cursor.fetchall()
+if len(data) == 0:
+    print("No username available you need to sign up!")
+else:
+    print("Welcome")
+
 print("Table created successfully")
 conn.close()
