@@ -4,7 +4,6 @@ from kivy.uix.anchorlayout import AnchorLayout
 from kivy.properties import ObjectProperty  # at top of file
 import sqlite3
 
-conn= sqlite3.connect('booksrecommender.db')
 
 class SignUpForm(AnchorLayout):
     username_box = ObjectProperty()
@@ -12,21 +11,22 @@ class SignUpForm(AnchorLayout):
     confirm_box = ObjectProperty()
 
     def login(self):
-        with conn:
-            cursor = conn.cursor()
+        conn = sqlite3.connect('booksrecommender.db')
+        password = self.password_box.text
+        username = self.username_box.text
+        confirm = self.confirm_box.text
+        cursor = conn.cursor()
+        if password == confirm:
+            print("Welcome")
+            cursor.execute("INSERT INTO Authentication VALUES (NULL, ?, ? )", (username, password));
+            conn.commit()
+            print("Table created successfully")
 
-            password = self.password_box.text
-            confirm = self.confirm_box.text
+        else:
+            print("Error in password")
+            conn.close()
 
-            if password == confirm:
-                print("Welcome")
-                cursor.execute('''INSERT INTO Authentication VALUES (?, ?);''', (self.username_box.text,password))
-                conn.commit()
-                print("Table created successfully")
-                conn.close()
 
-            else:
-                print("Error in password")
 
 class SignUp(App):
     def build(self):
