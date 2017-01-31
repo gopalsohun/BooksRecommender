@@ -17,48 +17,57 @@ BooksRecommendationRoot:
     search_input: search_box
     search_results: search_results_list
     BoxLayout:
+        spacing: 15
         orientation: "horizontal"
         size_hint_y: None
-        width: "40dp"
         height: "40dp"
         Button:
-            text: "Home"
+            text: ""
+            border: 5, 5, 5, 5
             size_hint_x: None
             width: "50dp"
+            background_color: [1, 1, 1, 0.1]
             Image:
-                source: "home.png"
+                source: "icons/home.png"
                 size_hint_x: None
                 width: "40dp"
                 height: "40dp"
+                y: self.parent.y + self.parent.height - 40
+                x: self.parent.x + 5
+                allow_stretch: True
         Button:
-            text: "Search"
+            text: ""
             size_hint_x: None
             width: "60dp"
             height: "40dp"
             on_press: root.search_book()
-            background_color: [0.5, 1, 0.2, 1]
+            background_color: [1, 1, 1, 0.1]
             Image:
-                source: "search.png"
+                source: "icons/search.png"
                 size_hint_x: None
                 width: "40dp"
                 height: "40dp"
+                y: self.parent.y + self.parent.height - 40
+                x: self.parent.x + 10
+                allow_stretch: True
+
         TextInput:
             id: search_box
-            size_hint_x: None
+            size_hint_y: None
             size: (100, "40dp")
-            focus: True
+#            focus: True
             cursor_color: [0, 0, 0, 1]
             font_size: "18sp"
-            size_hint_x: 50
             multiline: False
             on_text_validate: root.search_book()
-            handle_image_left: "search.png"
+            handle_image_left: "icons/search.png"
             hint_text: "Search books, e.g. Harry Potter"
             input_type: "text"
             keyboard_suggestions: True
 
     BoxLayout:
         orientation: "vertical"
+        size_hint_y: None
         Label:
             text: '[color=003300]Search Results[/color]'
             markup: True
@@ -66,24 +75,20 @@ BooksRecommendationRoot:
             font_size: "20sp"
             bold: True
             valign: "top"  #not working
-            size_hint_y: None
-            height: "500dp"
+
+
 
     BoxLayout:
+        padding: 0, 15, 0, 0
         orientation: "vertical"
         ListView:
             id: search_results_list
-            size_hint_y: None
-            height: "460px"
+#            size_hint_y: None
+#            height: "460px"
             selected_color: [0, 0, 0, 1]
             adapter:
                 ListAdapter(data=[], cls=main.BookButton, args_converter=root.args_converter)
 #            item_strings: [] #can manually enter values(static ones)
-        Button:
-            height: "40dp"
-            size_hint_y: None
-            text: "Previous"
-            on_press: app.root.show_book(None)
 
 
 <BookButton>:
@@ -100,15 +105,17 @@ BooksRecommendationRoot:
 
 <CurrentBook>:  #selected book info from list
     orientation: "vertical"
-    BoxLayout
+    BoxLayout:
         orientation: "horizontal"
+        padding: 20
+        spacing: 20
         Label:
             # text: root.title
             text: "{}\nBy {}".format(root.book[0], root.book[1])
             color: [0, 0, 0, 1]
-        Label:
-            text: "Publisher: {}".format(root.publisher)
-            font_size: "30dp"
+#        Label:
+#            text: "Publisher: {}".format(root.publisher)
+#            font_size: "30dp"
     BoxLayout:  #back to AddBookForm
         orientation: "horizontal"
         size_hint_y: None
@@ -121,10 +128,11 @@ BooksRecommendationRoot:
             height: "40dp"
             on_press: app.root.show_book_form()
             Image:
-                source: "back.png"
+                source: "icons/back.png"
                 size_hint_x: None
                 width: "40dp"
                 height: "40dp"
+                allow_stretch: True
         Label:
 #            text: root.title
             text: "{}".format(root.book[0])

@@ -1,6 +1,7 @@
 import json
 import requests
 from kivy.app import App
+from kivy.core.window import Window
 from kivy.uix.label import Label
 from kivy.uix.popup import Popup
 from kivy.uix.boxlayout import BoxLayout
@@ -9,6 +10,9 @@ from kivy.uix.listview import ListItemButton
 
 
 # BEGIN AddBookForm
+from kivy.utils import get_color_from_hex
+
+
 class AddBookForm(BoxLayout):
     googleapikey = "AIzaSyDgEcXMWxJo7BMfkjHRArzvZY9-5Vw3iTk"  # Google Books API key
     search_input = ObjectProperty()  # specifies default value of the property
@@ -82,7 +86,7 @@ class CurrentBook(BoxLayout):
         print(search_url.url)
         data = search_url.json()
         # self.thumbnail = data["volumeInfo"]["imageLinks"]["smallThumbnail"]
-        self.publisher = data["volumeInfo"]["publisher"]
+        # self.publisher = data["volumeInfo"]["publisher"]
         # self.date = data["volumeInfo"]["publishedDate"]
         # self.description = data["volumeInfo"]["description"]
 
@@ -134,5 +138,6 @@ class BooksRecommendationApp(App):
 
 # BEGIN MAIN
 if __name__ == '__main__':
+    Window.clearcolor = get_color_from_hex('#101216')
     BooksRecommendationApp().run()
     # END MAIN
