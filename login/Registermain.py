@@ -1,8 +1,7 @@
 from kivy.app import App
 from kivy.uix.boxlayout import BoxLayout
 
-
-class AddLoginForm(BoxLayout):
+class AddRegisterForm(BoxLayout):
     pass
 
 class LoginApp(App):

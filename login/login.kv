@@ -1,6 +1,74 @@
 AddLoginForm:
 
 <AddLoginForm>:
+
+    UserText: UserTextField
+    Password: PasswordField
+
+    BoxLayout:
+        orientation: "vertical"
+
+        Label:
+            text: 'Books Recommender'
+            font_size: 40
+        GridLayout:
+            cols: 2
+            row_default_height: "70dp"
+            row_force_default: True
+            padding: [40,80,40,40]
+            Image:
+                source: "userlogo.jpg"
+                size_hint_x: None
+                size_hint_y: None
+                width: "60dp"
+                height: "70dp"
+
+            TextInput:
+                id: UserTextField
+                text: 'Username'
+                multiline: False
+                size_hint_y: None
+                height: "60dp"
+                padding: [20,20,20,20]
+                font_size: 25
+
+        GridLayout:
+            cols: 2
+            orientation:"horizontal"
+            row_default_height: "70dp"
+            row_force_default: True
+            padding: [40,40,40,40]
+            Image:
+                source: "lockw.png"
+                size_hint_x: None
+                size_hint_y: None
+                width: "60dp"
+                height: "60dp"
+            TextInput:
+                id: PasswordField
+                text: 'Password'
+                multiline: False
+                password: True
+                height: "60dp"
+                padding: [20,20,20,20]
+                font_size: 25
+        Button:
+            text: 'Sign In'
+            font_size: 24
+            size_hint_y: None
+            height: "40dp"
+            on_press: root.do_login()
+
+        BoxLayout:
+            id: footer
+            padding: [100,100,100,100]
+            spacing: 10
+            orientation: "vertical"
+            Label:
+                text: "Don't have an account yet? SignUp."
+                font_size: 10
+
+<AddRegisterForm>:
     BoxLayout:
         id: header
         padding: [40,40,40,40]
@@ -9,37 +77,49 @@ AddLoginForm:
         Label:
             text: 'Books Recommender'
             font_size: 40
-        BoxLayout:
+        GridLayout:
             id: body
+            cols: 2
             orientation:"horizontal"
-            BoxLayout:
-                Image:
-                    source: "user1.png"
-                    size_hint_x: None
-                    width: "40dp"
-                    height: "40dp"
-                    padding: [10,10,10,10]
-            BoxLayout:
-                TextInput:
-                    id: UserTextField
-                    text: 'Username'
-                    multiline: False
-                    font_size: 30
-        BoxLayout:
+            Image:
+                source: "userlogo.jpg"
+                size_hint_x: None
+                width: "60dp"
+                height: "60dp"
+                padding: [10,10,10,10]
+
+            TextInput:
+                id: UserTextField
+                text: 'Username'
+                multiline: False
+                font_size: 30
+        GridLayout:
             id: body
+            cols: 2
             orientation:"horizontal"
-            BoxLayout:
-                Image:
-                    source: "pass.png"
-                    size_hint_x: None
-                    width: 40
-                    height: 40
-            BoxLayout:
-                TextInput:
-                    id: PasswordField
-                    text: 'Password'
-                    multiline: False
-                    font_size: 30
+            Image:
+                source: "lockw.png"
+                size_hint_x: None
+                width: 40
+                height: 40
+            TextInput:
+                id: PasswordField
+                text: 'Password'
+                multiline: False
+                font_size: 30
+        GridLayout:
+            cols: 2
+            orientation: "horizontal"
+            Image:
+                source: "lockw.png"
+                size_hint_x: None
+                width: 40
+                height: 40
+            TextInput:
+                id: PasswordField
+                text: 'Confirm Password'
+                multiline: False
+                font_size: 30
 
         Button:
             text: 'Sign In'
