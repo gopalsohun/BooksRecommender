@@ -3,9 +3,13 @@ from kivy.uix.anchorlayout import AnchorLayout
 from kivy.uix.popup import Popup
 from kivy.uix.label import Label
 from kivy.properties import ObjectProperty  # at top of file
+# from kivy.lang import Builder
 import sqlite3
+from kivy.uix.screenmanager import ScreenManager, Screen
+import os
+from SignInUp.categorymain import profile
 
-class SignInForm(AnchorLayout):
+class SignInForm(Screen):
     username_box = ObjectProperty()
     password_box = ObjectProperty()
 
@@ -39,13 +43,21 @@ class SignInForm(AnchorLayout):
                 print("Welcome")
                 popup = Popup(title="Information", content=Label(text="Welcome"),
                               size_hint=(None, None),
-                              size=(400, 200))
+                              size=(400, 200), auto_dismiss=True)
                 popup.open()
+                self.manager.current = 'categorymain'
+
+                # def username():
+                #     return self.username()
                 return
 
 class SignIn(App):
     def build(self):
-        return SignInForm()
+        sm = ScreenManager()
+        sm.add_widget(SignInForm(name='signin'))
+        sm.add_widget(profile(name='categorymain'))
+        return sm
+
 
 if __name__ == '__main__':
     SignIn().run()
