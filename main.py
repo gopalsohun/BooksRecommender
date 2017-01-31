@@ -1,31 +1,25 @@
-# BEGIN IMPORTS
 import json
 import requests
 from kivy.app import App
-from kivy.factory import Factory
 from kivy.uix.label import Label
 from kivy.uix.popup import Popup
 from kivy.uix.boxlayout import BoxLayout
-from kivy.properties import ObjectProperty
+from kivy.properties import ObjectProperty, ListProperty, StringProperty
 from kivy.uix.listview import ListItemButton
 
-
-# END IMPORTS
 
 # BEGIN AddBookForm
 class AddBookForm(BoxLayout):
     googleapikey = "AIzaSyDgEcXMWxJo7BMfkjHRArzvZY9-5Vw3iTk"  # Google Books API key
     search_input = ObjectProperty()  # specifies default value of the property
 
-    # def search_book(self):
-    #     print("The user searched for '{}'".format(self.search_input.text))
-    #BEGIN search_book
+    # BEGIN search_book
     def search_book(self):
         self.search_results.item_strings = ""
         if self.search_input.text == "":
             popup = Popup(title="Information",
-            content=Label(text="No book name specified"),
-            size_hint=(None, None), size=(400, 200))
+                          content=Label(text="No book name specified"),
+                          size_hint=(None, None), size=(400, 200))
             popup.open()
             return
 
@@ -35,23 +29,14 @@ class AddBookForm(BoxLayout):
         print(search_url.url)
         data = search_url.json()
 
-        # print(data["totalItems"])
-        # for d in data["items"]:
-        #     try:
-        #         # print(repr(i["volumeInfo"]["description"]))
-        #         print("".join(d["volumeInfo"]["title"]))
-        #         self.search_results.item_strings =
-        #     except:
-        #         pass
-        # try:
-        #     # print(repr((i["volumeInfo"]["imageLinks"]["thumbnail"])))
-        #     self.search_results.item_strings = i["volumeInfo"]["authors"]
-        # except:
-        #     pass
-
-        books = ['{}\nBy {}'.format(d["volumeInfo"]["title"], d["volumeInfo"]["authors"][0])
+        books = [(d["volumeInfo"]["title"], d["volumeInfo"]["authors"][0])
                  for d in data["items"]]
-        print("\n".join(books))
+        # print("\n".join(books))
+
+        # test = [(d["volumeInfo"]["imageLinks"]["smallThumbnail"]) #d["volumeInfo"]["publishedDate"]
+        #         for d in data["items"]]
+        # print(test)
+
         self.search_results.item_strings = books
 
         # search_url = search_template.format(self.search_input.text)
@@ -59,11 +44,10 @@ class AddBookForm(BoxLayout):
 
     # END search_book
 
-    # BEGIN found_book
     def found_book(self, request, data):
         data = json.loads(data.decode()) if not isinstance(data, dict) else data  # turn into a dictionary
 
-        books = ["{}{}".format(d['title'], d['authors'])
+        books = [(d['title'], d['authors'])
                  for d in data['items']]
 
         print("\n".join(books))
@@ -72,39 +56,70 @@ class AddBookForm(BoxLayout):
         self.search_results.adapter.data.clear()
         self.search_results.adapter.data.extend(books)
         self.search_results._trigger_reset_populate()
-    # END found_book
+
+    def args_converter(self, index, data_item):
+        title, authors = data_item
+        return {'book': (title, authors)}
 
 
 # END AddBookForm
+
+class CurrentBook(BoxLayout):
+    googleapikey = "AIzaSyDgEcXMWxJo7BMfkjHRArzvZY9-5Vw3iTk"  # Google Books API key
+    book = ListProperty(["Harry Potter", "J.K Rowling"])
+    thumbnail = StringProperty()
+    publisher = StringProperty()
+    date = StringProperty()
+    description = StringProperty()
+
+    def update_book(self):
+        query = self.book[0]
+        print("{} saem sa".format(query))
+        parms = {"q": query, 'key': self.googleapikey}
+        print(parms)
+        search_template = "https://www.googleapis.com/books/v1/volumes"
+        search_url = requests.get(url=search_template, params=parms)
+        print(search_url.url)
+        data = search_url.json()
+        # self.thumbnail = data["volumeInfo"]["imageLinks"]["smallThumbnail"]
+        self.publisher = data["volumeInfo"]["publisher"]
+        # self.date = data["volumeInfo"]["publishedDate"]
+        # self.description = data["volumeInfo"]["description"]
+
+    def book_retrieved(self, request, data):
+        data = json.loads(data.decode()) if not isinstance(data, dict) else data
+        self.thumbnail = data["volumeInfo"]["imageLinks"]["smallThumbnail"]
+        self.publisher = data["volumeInfo"]["publisher"]
+        self.date = data["volumeInfo"]["publishedDate"]
+        self.description = data["volumeInfo"]["description"]
+
 
 # BEGIN BooksRecommendationRoot
 class BooksRecommendationRoot(BoxLayout):
     current_book = ObjectProperty()  # specifies default value of the property
 
-    # BEGIN show_book
-    def show_book(self, title=None):
+    def show_book(self, book=None):
         self.clear_widgets()
-        if title is None and self.current_book is None:
-            title = "Nothing found."
-        if title is not None:
-            self.current_book = Factory.CurrentBook()
-            self.current_book.title = title
+        if book is None and self.current_book is None:
+            book = ("Nothing found", "None")
+            self.current_book = CurrentBook()
+        if book is not None:
+            # self.current_book = Factory.CurrentBook()
+            self.current_book = CurrentBook(book=book)
+            # self.current_book.title = book
+        self.current_book.update_book()
         self.add_widget(self.current_book)
 
-    # END show_book
-
-    # BEGIN show_book_form
     def show_book_form(self):
         self.clear_widgets()
         self.add_widget(AddBookForm())
-        # END show_book_form
 
 
 # END BooksRecommendationRoot
 
 # BEGIN BookButton
 class BookButton(ListItemButton):
-    pass
+    book = ListProperty()
 
 
 # END BookButton
@@ -120,4 +135,4 @@ class BooksRecommendationApp(App):
 # BEGIN MAIN
 if __name__ == '__main__':
     BooksRecommendationApp().run()
-# END MAIN
+    # END MAIN
