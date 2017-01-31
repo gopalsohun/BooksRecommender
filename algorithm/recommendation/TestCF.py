@@ -12,5 +12,5 @@ reviews = {
 }
 
 bx_recommender = CF(reviews)
-bx_recommender.openDataset('/Users/Gopal/Downloads/BX-Dump/')
+bx_recommender.openDataset('/Users/Gopal/Downloads/Dataset/')
 print(bx_recommender.getRecommendation('171118'))
